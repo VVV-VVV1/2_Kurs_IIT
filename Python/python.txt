@@ -1,0 +1,243 @@
+1. Знакомство с языком
+
+1.2
+
+целые числа ограничены памятью компьютера
+Ограничение чисел с плавающей точкой  обусловлено стандартом их представления IEEE 754
+максимально допустимое число можно получить так
+
+import sys
+
+maxFloat = sys.float_info.max
+print(maxFloat)
+
+1.3
+
+divmod()
+
+1.4
+
+Проблема в том, что при каждой итерации цикла переменная a уменьшается на значение 0.1, что может привести к бесконечному циклу из-за ошибок округления с плавающей запятой.
+Значение 0.1 представляется в виде числа с плавающей запятой с ограниченной точностью. Поэтому, хотя 0.1 в человеческом представлении кажется простым десятичным числом, внутри Питона оно представлено в виде близкого, но не точного числа с плавающей запятой. 
+
+1.5
+
+Проблема возникает из-за попытки вычислить очень большое число.
+
+1.6
+
+в python нет инкриментов и декриментов
+
+1.7
+
+Это выражение использует логические значения true и false в вычислениях, где они автоматически приводятся к целым числам 1 и 0 соответственно.
+
+1.8
+
+В первом случае, выражение 1 < x < 10 означает "x больше 1 и меньше 10". Поэтому если x равно 5, то оба условия выполняются, и результат будет True.
+
+Во втором случае, выражение сначала вычисляет (x < 10), и затем сравнивает результат этого выражения с 1. Результат выражения (x < 10) равен True, поэтому сравнение выглядит как 1 < 1. Выражение 1 < 1 возвращает False.
+
+2. Сообщения об ошибках
+
+2.1
+
+prin("hello world")
+
+2.2
+
+1 = x
+
+2.3
+
+books = ["Near Dark", "The Order", "Where the Crawdads Sing"]
+print(boooks)
+
+2.4
+
+a = 'a
+
+2.5
+
+a "a" + 1
+
+2.6
+
+if 1:
+
+2.7
+
+if True:
+    print("b")
+  print("a")
+
+2.8
+
+import math
+
+print(math.sqrt(-1))
+
+2.9
+
+import math
+
+result = math.exp(1000)
+
+3. Арифметика
+
+3.1
+
+def sum(x):
+	b = x + x
+	a = b + b
+	z = a + a + a
+3.2
+
+def sum(x):
+    z=x
+    z+=z
+    z+=z
+    z+=z
+    z+=z
+    return z
+print(sum(1))
+
+3.3
+
+def mult(x):
+    res = x + x
+    res_str = str(res) + "0"
+    res_int = int(res_str)
+    res_int = res_int - res - (res + x)
+    return res_int
+
+print(mult(2))
+
+3.4
+
+import random
+def naive_mul(x, y):
+    res = 0
+    for i in range(0, y - 1):
+        res = res + x
+    return res
+
+def mul(x,y):
+    return x * y
+
+x = random.randint(0, 100)
+y = random.randint(0, 100)
+
+res1 = naive_mul(x, y)
+res2 = mul(x, y)
+assert res1 == res2, "Не равны"
+
+3.5
+
+def fast_mul(x, y):
+    while x > 0:
+	if x % 2 != 0:
+            res =+ y
+        x //= 2
+        y *= 2
+        
+    return res
+
+def mul(x,y):
+    res = x * y
+
+print(fast_mul(10, 15))
+print(fast_mul(10, 15))
+
+res1 = fast_mul(10, 15)
+res2 = mul(10, 15)
+
+assert res1 == res2, "Не равны"
+
+3.6
+
+def fast_pow(x, y):
+    res = 1
+    while x > 0:
+        if x % 2 != 0:
+            res = res * y
+        x //= 2
+        y = y**2
+
+    return res
+
+def pow(x,y):
+    res = x**y
+
+x = 13
+y = 7
+
+res1 = fast_pow(x,y)
+res2 = pow(x,y)
+
+print(res1)
+print(res1)
+
+assert res1 == res2, "Не равны"
+
+3.7
+
+def mul_bits(x, y, bits):
+    x &= (2 ** bits - 1)
+    y &= (2 ** bits - 1)
+    return x * y
+
+x = 12
+y = 13
+bits = 8
+
+res1 = mul_bits(x, y, bits)
+res2 = mul_bits(x, y >> 8, bits) << 8
+res3 = mul_bits(x >> 8, y, bits) << 8
+res4 = mul_bits(x >> 8, y >> 8, bits) << 16
+
+print(res1 + res2 + res3 + res4)
+
+3.8
+
+def mul_bits(x, y):
+    x &= (2 ** 8 - 1)
+    y &= (2 ** 8 - 1)
+    return x * y
+
+
+def sum_bits(x, y):
+    x &= (2 ** 8 - 1)
+    y &= (2 ** 8 - 1)
+    return x + y
+
+
+x = 7641
+y = 8512
+
+res1 = mul_bits(x, y)
+res2 = mul_bits(x >> 8, y >> 8)
+res3 = (sum_bits(x >> 8, x)) * (sum_bits(y >> 8, y))
+res4 = res1 + ((res3 - res2 - res1) << 8) + (res2 << 16)
+
+print(x * y)
+print(res4)
+
+
+4.1
+
+import tkinter
+
+window = tkinter.Tk()
+window.title("4.1")
+
+frame = tkinter.Frame(master=window, width=150, height=150, bg="black")
+frame.place(x=25, y=25)
+
+window.mainloop()
+
+
+
+
+
+
